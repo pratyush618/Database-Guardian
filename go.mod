@@ -1,4 +1,4 @@
-module github.com/Annany/Database-Guardian
+module github.com/Annany2002/Database-Guardian
 
 go 1.23.4
 
@@ -7,6 +7,7 @@ require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/pgx/v5 v5.7.2 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/spf13/cobra v1.8.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
