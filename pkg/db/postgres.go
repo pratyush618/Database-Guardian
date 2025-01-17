@@ -1,32 +1,34 @@
 package db
 
 import (
-	"context"
-	"fmt"
 	"log"
-	"os"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/joho/godotenv"
+	"database/sql"
+
+	"github.com/Annany2002/Database-Guardian/pkg/utils"
+
+	_ "github.com/lib/pq"
 )
 
-func ConnectToPG() (*pgx.Conn, error) {
-	// Get the database URL from environment variable
-	err := godotenv.Load()
+func ConnectToPostgres() (*sql.DB, error) {
+	dbURL, err := utils.GenerateConnectionString()
 	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	dbURL := os.Getenv("DATABASE_URL")
-	if dbURL == "" {
-		return nil, fmt.Errorf("DATABASE_URL environment variable not set")
+		log.Fatal("DATABASE_URL environment variable not set", err)
 	}
 
 	// Connect to the database
-	conn, err := pgx.Connect(context.Background(), dbURL)
+	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
-		return nil, fmt.Errorf("unable to connect to database: %v", err)
+		log.Fatalf("Error opening database: %v\n", err)
+	}
+	defer db.Close()
+
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("Error connecting to the database: %v\n", err)
 	}
 
-	return conn, nil
+	log.Println("Connected to PostgreSQL database")
+
+	return db, nil
 }

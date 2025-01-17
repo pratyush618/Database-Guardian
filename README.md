@@ -58,7 +58,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
    ```
 2. Navigate to the project directory:
    ```bash
-   cd db_backup_tool
+   cd data_guardian
    ```
 3. Install dependencies:
    ```bash
@@ -66,7 +66,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
    ```
 4. Build the CLI:
    ```bash
-   go build -o db_backup_tool ./cmd/main.go
+   go build -o data_guardian ./cmd/main.go
    ```
 
 ## Usage
@@ -74,7 +74,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 ### Backup Command
 
 ```bash
-./db_backup_tool backup --db-type mysql --host localhost --port 3306 --user root --password secret --db-name mydb --type full --output /backups
+./data_guardian backup --db-type mysql --host localhost --port 3306 --user root --password secret --db-name mydb --type full --output /backups
 ```
 
 #### Options
@@ -91,7 +91,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 ### Restore Command
 
 ```bash
-./db_backup_tool restore --db-type postgres --backup-file /backups/mydb_backup.gz
+./data_guardian restore --db-type postgres --backup-file /backups/mydb_backup.gz
 ```
 
 #### Options
@@ -105,7 +105,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 Use the `schedule` subcommand to automate backups:
 
 ```bash
-./db_backup_tool schedule --interval "0 2 * * *" --command "./db_backup_tool backup ..."
+./data_guardian schedule --interval "0 2 * * *" --command "./db_backup_tool backup ..."
 ```
 
 ### Slack Notifications

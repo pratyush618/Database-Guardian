@@ -1,0 +1,8 @@
+# Default output directory.
+# Default backup format (e.g., plain, custom).
+# Compression enabled/disabled by default.
+
+backup:
+  default_output: "/backups"
+  default_format: "custom"
+  compress: true
