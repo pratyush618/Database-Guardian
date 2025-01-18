@@ -5,9 +5,14 @@ import (
 
 	"database/sql"
 
+	"github.com/Annany2002/Database-Guardian/pkg/logger"
 	"github.com/Annany2002/Database-Guardian/pkg/utils"
 
 	_ "github.com/lib/pq"
+)
+
+var (
+	customLog = logger.NewLogger()
 )
 
 func ConnectToPostgres() (*sql.DB, error) {
@@ -28,7 +33,7 @@ func ConnectToPostgres() (*sql.DB, error) {
 		log.Fatalf("Error connecting to the database: %v\n", err)
 	}
 
-	log.Println("Connected to PostgreSQL database")
+	customLog.Info("Connected to PostgreSQL database")
 
 	return db, nil
 }

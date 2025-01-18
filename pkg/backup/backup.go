@@ -8,9 +8,13 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/Annany2002/Database-Guardian/pkg/logger"
 	"github.com/Annany2002/Database-Guardian/pkg/utils"
 	"github.com/JCoupalK/go-pgdump"
-	"github.com/sirupsen/logrus"
+)
+
+var (
+	customLog = logger.NewLogger()
 )
 
 func FullBackup(outputDir string) error {
@@ -43,13 +47,13 @@ func FullBackup(outputDir string) error {
 	defer gzipWriter.Close()
 
 	// Create a new dumper instance
-	dumper := pgdump.NewDumper(dbURL, 5)
+	dumper := pgdump.NewDumper(dbURL, 8)
 
 	if err := dumper.DumpDatabase(dumpFileName, &pgdump.TableOptions{}); err != nil {
 		os.Remove(dumpFileName) // Cleanup on failure
 		return fmt.Errorf("error dumping database: %w", err)
 	}
 
-	logrus.WithField("file", dumpFileName).Info("Backup successfully saved")
+	customLog.Info("Backup successfully saved")
 	return nil
 }
