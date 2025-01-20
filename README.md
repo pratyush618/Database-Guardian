@@ -66,37 +66,43 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
    ```
 4. Build the CLI:
    ```bash
-   go build -o data_guardian ./cmd/main.go
+   go build .
    ```
 
 ## Usage
 
+## About guard
+
+```bash
+./guard
+```
+
 ### Backup Command
 
 ```bash
-./data_guardian backup --db-type mysql --host localhost --port 3306 --user root --password secret --db-name mydb --type full --output /backups
+./guard backup --dbms mysql --host localhost --port 3306 --username root --password secret --dbname mydb --type full
 ```
 
 #### Options
 
-- `--db-type` : Type of the database (`mysql`, `postgres`, `mongodb`, `sqlite`).
+- `--dbms` : Type of the database (`mysql`, `postgres`, `mongodb`, `sqlite`).
 - `--host` : Database host.
 - `--port` : Database port.
-- `--user` : Username for database access.
+- `--username` : Username for database access.
 - `--password` : Password for database access.
-- `--db-name` : Name of the database to back up.
+- `--dbname` : Name of the database to back up.
 - `--type` : Backup type (`full`, `incremental`, `differential`).
-- `--output` : Directory to save the backup file.
+- `--output(optional)` : Directory to save the backup file.
 
 ### Restore Command
 
 ```bash
-./data_guardian restore --db-type postgres --backup-file /backups/mydb_backup.gz
+./guard restore --dbms postgres --backup-file /backups/mydb_backup.gz
 ```
 
 #### Options
 
-- `--db-type` : Type of the database.
+- `--dbms` : Type of the database.
 - `--backup-file` : Path to the backup file.
 - `--restore-tables` : (Optional) Comma-separated list of tables to restore.
 
@@ -105,7 +111,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 Use the `schedule` subcommand to automate backups:
 
 ```bash
-./data_guardian schedule --interval "0 2 * * *" --command "./db_backup_tool backup ..."
+./guard schedule --interval "0 2 * * *" --command "./db_backup_tool backup ..."
 ```
 
 ### Slack Notifications
@@ -139,7 +145,7 @@ aws:
 
 ## Logging
 
-Logs are stored in `logs/backup.log` by default. You can change the log path in the configuration file.
+Logs are stored in `logs/data-guard.log` by default. You can change the log path in the configuration file.
 
 ## Testing
 
@@ -160,4 +166,4 @@ Contributions are welcome! Please submit a pull request or open an issue to repo
 
 ## Contact
 
-For any questions or feedback, feel free to contact annivish2002@gmail.com
+For any questions or feedback, feel free to contact shazam6061@gmail.com

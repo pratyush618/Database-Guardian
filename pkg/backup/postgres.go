@@ -3,13 +3,12 @@ package backup
 import (
 	"compress/gzip"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
 
-	"github.com/Annany2002/Database-Guardian/pkg/logger"
-	"github.com/Annany2002/Database-Guardian/pkg/utils"
+	"github.com/Annany2002/guard/pkg/logger"
+	"github.com/Annany2002/guard/pkg/utils"
 	"github.com/JCoupalK/go-pgdump"
 )
 
@@ -17,10 +16,11 @@ var (
 	customLog = logger.NewLogger()
 )
 
-func FullBackup(outputDir string) error {
-	dbURL, err := utils.GenerateConnectionString()
+func FullBackup(db_name, db_password, db_user, db_host, outputDir string, db_port int) error {
+	dbURL, err := utils.GenerateConnectionString(db_name, db_password, db_user, db_host, db_port)
 	if err != nil {
-		log.Fatal("DATABASE_URL environment variable not set")
+		customLog.Fatal("All environment variables not set")
+		return err
 	}
 
 	// Create output directory
@@ -28,12 +28,10 @@ func FullBackup(outputDir string) error {
 		return fmt.Errorf("failed to create output directory: %w", err)
 	}
 
-	dbName := os.Getenv("DB_NAME")
-
 	currTime := time.Now()
 
 	// Create output file name
-	dumpFileName := filepath.Join(outputDir, fmt.Sprintf("%s-%s.sql", dbName, currTime.Format("20060102T150405")))
+	dumpFileName := filepath.Join(outputDir, fmt.Sprintf("%s-%s.sql", db_name, currTime.Format("20060102T150405")))
 
 	// Opening the file for write
 	file, err := os.Create(dumpFileName)

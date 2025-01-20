@@ -5,8 +5,8 @@ import (
 
 	"database/sql"
 
-	"github.com/Annany2002/Database-Guardian/pkg/logger"
-	"github.com/Annany2002/Database-Guardian/pkg/utils"
+	"github.com/Annany2002/guard/pkg/logger"
+	"github.com/Annany2002/guard/pkg/utils"
 
 	_ "github.com/lib/pq"
 )
@@ -15,10 +15,10 @@ var (
 	customLog = logger.NewLogger()
 )
 
-func ConnectToPostgres() (*sql.DB, error) {
-	dbURL, err := utils.GenerateConnectionString()
+func ConnectToPostgres(db_name, db_password, db_user, db_host string, db_port int) (*sql.DB, error) {
+	dbURL, err := utils.GenerateConnectionString(db_name, db_password, db_user, db_host, db_port)
 	if err != nil {
-		log.Fatal("DATABASE_URL environment variable not set", err)
+		log.Fatal(err)
 	}
 
 	// Connect to the database
