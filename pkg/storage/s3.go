@@ -22,9 +22,10 @@ var (
 	customLog = logger.NewLogger()
 )
 
+// Creates a new s3 Client
 func NewS3Client(bucketName string) (*S3Client, error) {
 	// Load environment variables from .env file
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load("../.env"); err != nil {
 		return nil, err
 	}
 
@@ -33,7 +34,7 @@ func NewS3Client(bucketName string) (*S3Client, error) {
 		return nil, errors.New("aws credentials or region not set. Ensure your .env file contains AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION")
 	}
 
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithDefaultRegion("ap-south-1"))
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithDefaultRegion(os.Getenv("AWS_REGION")))
 	if err != nil {
 		return nil, err
 	}
@@ -47,6 +48,7 @@ func NewS3Client(bucketName string) (*S3Client, error) {
 	}, nil
 }
 
+// Uploads a file to s3 with a specified file path
 func (c *S3Client) UploadFileToS3(filePath, objectKey string) error {
 	file, err := os.Open(filePath)
 	if err != nil {

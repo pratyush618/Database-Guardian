@@ -11,7 +11,7 @@ func RestoreCommand() *cobra.Command {
 	var restoreCmd = &cobra.Command{
 		Use:   "restore",
 		Short: "Restore a database from a backup",
-		Long:  "Restore a database from a specified storage location",
+		Long:  `Restore a database from a specified storage location`,
 
 		Run: func(cmd *cobra.Command, args []string) {
 			customLog.Info("Starting restoring operation")
@@ -20,7 +20,7 @@ func RestoreCommand() *cobra.Command {
 			dbms, _ := cmd.Flags().GetString("dbms")
 			host, _ := cmd.Flags().GetString("host")
 			dbname, _ := cmd.Flags().GetString("dbname")
-			port, _ := cmd.Flags().GetInt("port")
+			port, _ := cmd.Flags().GetString("port")
 			username, _ := cmd.Flags().GetString("username")
 			password, _ := cmd.Flags().GetString("password")
 
@@ -41,7 +41,7 @@ func RestoreCommand() *cobra.Command {
 
 	restoreCmd.Flags().StringVar(&file_path, "file", "", "Path from where the db should be restored")
 	restoreCmd.Flags().StringP("dbms", "d", "", "Database Management System (mysql, postgres, mongodb, sqlite)")
-	restoreCmd.Flags().IntP("port", "p", 0, "Database port")
+	restoreCmd.Flags().StringP("port", "p", "", "Database port")
 	restoreCmd.Flags().StringP("dbname", "D", "", "Database name")
 	restoreCmd.Flags().StringP("host", "H", "", "Database host")
 	restoreCmd.Flags().StringP("username", "U", "", "Database username")

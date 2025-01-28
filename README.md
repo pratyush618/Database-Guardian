@@ -80,7 +80,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 ### Backup Command
 
 ```bash
-./guard backup --dbms mysql --host localhost --port 3306 --username root --password secret --dbname mydb --type full
+./guard backup --dbms mysql --host localhost --port 3306 --username root --password secret --dbname mydb
 ```
 
 #### Options
@@ -91,30 +91,53 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 - `--username` : Username for database access.
 - `--password` : Password for database access.
 - `--dbname` : Name of the database to back up.
-- `--type` : Backup type (`full`, `incremental`, `differential`).
 - `--output(optional)` : Directory to save the backup file.
 
 ### Restore Command
 
 ```bash
-./guard restore --dbms postgres --backup-file /backups/mydb_backup.gz
+./guard restore --dbms mysql --dbname mysql --host localhost --password secret --port 5432 --username root --file path/to/file
 ```
 
 #### Options
 
-- `--dbms` : Type of the database.
-- `--backup-file` : Path to the backup file.
-- `--restore-tables` : (Optional) Comma-separated list of tables to restore.
+- `--dbms` : Type of the database (`mysql`, `postgres`, `mongodb`, `sqlite`).
+- `--host` : Database host.
+- `--port` : Database port.
+- `--username` : Username for database access.
+- `--password` : Password for database access.
+- `--dbname` : Name of the database to back up.
+- `--file` : Path from where database will be restored
 
 ### Scheduling Backups
 
 Use the `schedule` subcommand to automate backups:
 
 ```bash
-./guard schedule --interval "0 2 * * *" --command "./db_backup_tool backup ..."
+./guard schedule --interval "0 2 * * *" --command "./guard backup ..."
 ```
 
-### Slack Notifications
+### Unschedule command
+
+Use the `unschedule` subcommand to unschedule the back with it's own id:
+
+```bash
+./guard unschedule --j
+```
+
+#### Options
+
+- `j` : Job id
+
+### List all Scheduled backups command
+
+Use the `list` subcommand to view all the scheduled backups with their job id:
+
+```bash
+./guard list
+```
+
+### Slack Notifications(Upcoming)
 
 To enable Slack notifications, set your Slack webhook URL in the environment variables:
 
@@ -155,6 +178,10 @@ Run tests to ensure the tool works as expected:
 cd tests
 go test ./...
 ```
+
+## Note
+
+The version 1 of guard will only contain **postgres** databse for all features, with time the rest dbms's will be added.
 
 ## License
 

@@ -16,7 +16,7 @@ var (
 	customLog = logger.NewLogger()
 )
 
-func FullBackup(db_name, db_password, db_user, db_host, outputDir string, db_port int) error {
+func FullBackup(db_name, db_password, db_user, db_host, outputDir, db_port string) error {
 	dbURL, err := utils.GenerateConnectionString(db_name, db_password, db_user, db_host, db_port)
 	if err != nil {
 		customLog.Fatal("All environment variables not set")

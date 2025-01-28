@@ -3,6 +3,6 @@
 # Compression enabled/disabled by default.
 
 backup:
-  default_output: "/backups"
+  default_output: "../backups"
   default_format: "custom"
   compress: true

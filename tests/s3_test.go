@@ -1,45 +1,52 @@
 package tests
 
 import (
-	"context"
+	"fmt"
 	"os"
 	"testing"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/Annany2002/guard/pkg/storage"
 	"github.com/joho/godotenv"
 )
 
-func TestS3Config(t *testing.T) {
+func TestConfig(t *testing.T) {
 	// Load environment variables from .env file
 	if err := godotenv.Load("../.env"); err != nil {
-		t.Fatal("No .env file found or could not be loaded. Proceeding with existing environment variables.")
+		t.Fatal("No .env file found or could not be loaded.")
 	}
+
+	_, err := storage.NewS3Client(os.Getenv("BUCKET_NAME"))
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
+}
+
+func TestFileUpload(t *testing.T) {
+	// Load environment variables from .env file
+	err := godotenv.Load("../.env")
+	if err != nil {
+		t.Fatal("No .env file found or could not be loaded.")
+	}
+
+	bucketName := os.Getenv("BUCKET_NAME")
+	filePath := os.Getenv("FILE_PATH")
+	objectKey := os.Getenv("OBJECT_KEY")
+	fileName := os.Getenv("FILE_NAME")
+	objectKey = fmt.Sprintf("%s/%s", objectKey, fileName)
 
 	// Ensure required variables are set
-	if os.Getenv("AWS_ACCESS_KEY_ID") == "" || os.Getenv("AWS_SECRET_ACCESS_KEY") == "" || os.Getenv("AWS_REGION") == "" {
-		t.Fatal("AWS credentials or region not set. Ensure your .env file contains AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION.")
+	if bucketName == "" {
+		t.Fatal("Bucket name must not be empty")
 	}
 
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithDefaultRegion("ap-south"))
+	s3Client, err := storage.NewS3Client(bucketName)
 	if err != nil {
-		t.Fatalf("Error loading config: %v", err)
+		t.Fatalf("%v", err)
 	}
 
-	client := s3.NewFromConfig(cfg)
-
-	// Get the first page of results for ListObjectsV2 for a bucket
-	output, err := client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
-		Bucket: aws.String(os.Getenv("BUCKET_NAME")),
-	})
+	err = s3Client.UploadFileToS3(filePath, objectKey)
 
 	if err != nil {
-		t.Fatalf("Error listing objectives: %v", err)
-	}
-
-	t.Log("first page results")
-	for _, object := range output.Contents {
-		t.Fatalf("key=%s size=%d", aws.ToString(object.Key), object.Size)
+		t.Fatalf("Error during file upload: %v", err)
 	}
 }

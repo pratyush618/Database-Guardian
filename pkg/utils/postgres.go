@@ -17,15 +17,15 @@ import (
 var customLog = logger.NewLogger()
 
 // Generates a connection string
-func GenerateConnectionString(db_name, db_password, db_user, db_host string, db_port int) (string, error) {
-	if db_name == "" || db_password == "" || db_user == "" || db_host == "" || fmt.Sprintf("%d", db_port) == "" {
+func GenerateConnectionString(db_name, db_password, db_user, db_host, db_port string) (string, error) {
+	if db_name == "" || db_password == "" || db_user == "" || db_host == "" || db_port == "" {
 		return "", errors.New("missing one or more connection parameters")
 	}
-	return fmt.Sprintf("postgres://%s:%s@%s:%v/%s?sslmode=disable", db_user, db_password, db_host, db_port, db_name), nil
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", db_user, db_password, db_host, db_port, db_name), nil
 }
 
 // RestoreGzFile restores a PostgreSQL database from a .gz file
-func RestoreGzFile(filePath, host, username, password, dbname string, port int) error {
+func RestoreGzFile(filePath, host, username, password, dbname, port string) error {
 	// Create a temporary directory to extract the file
 	tempDir, err := os.MkdirTemp("", "guard")
 	if err != nil {
@@ -71,9 +71,12 @@ func RestoreGzFile(filePath, host, username, password, dbname string, port int) 
 }
 
 // RestoreSqlFile restores a PostgreSQL database from a .sql file
-func RestoreSqlFile(filePath, host, username, password, dbname string, port int) error {
-	// Construct the connection string
-	connStr := fmt.Sprintf("host=%s port=%v user=%s password=%s dbname=%s sslmode=disable", host, port, username, password, dbname)
+func RestoreSqlFile(filePath, host, username, password, dbname, port string) error {
+	// Connect to the 'postgres' database (or another existing database)
+	connStr, err := GenerateConnectionString("postgres", password, username, host, port)
+	if err != nil {
+		customLog.Errorf("%v", err)
+	}
 
 	// Connect to the PostgreSQL database
 	db, err := sql.Open("postgres", connStr)
@@ -110,7 +113,11 @@ func RestoreSqlFile(filePath, host, username, password, dbname string, port int)
 	db.Close()
 
 	// Reconnect to the newly created database
-	connStr = fmt.Sprintf("host=%s port=%v user=%s password=%s dbname=postgres sslmode=disable", host, port, username, password)
+	connStr, err = GenerateConnectionString(dbname, password, username, host, port)
+	if err != nil {
+		customLog.Errorf("%v", err)
+	}
+
 	db, err = sql.Open("postgres", connStr)
 	if err != nil {
 		customLog.Errorf("Failed to connect to PostgreSQL: %v", err)

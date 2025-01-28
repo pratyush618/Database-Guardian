@@ -13,7 +13,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "guard",
 	Short: "A powerful command-line interface (CLI) utility built in Go for backing up and restoring databases.",
-	Long:  "Database Guardian is a command-line interface (CLI) utility built in Go for backing up and restoring databases. It supports multiple database management systems (DBMS) such as MySQL, PostgreSQL, MongoDB, and SQLite. This tool allows users to schedule automatic backups, compress backup files, and store them locally or in the cloud",
+	Long:  `Database Guardian is a command-line interface (CLI) utility built in Go for backing up and restoring databases. It supports multiple database management systems (DBMS) such as MySQL, PostgreSQL, MongoDB, and SQLite. This tool allows users to schedule automatic backups, compress backup files, and store them locally or in the cloud`,
 }
 
 func Execute() {
@@ -28,5 +28,5 @@ func init() {
 }
 
 func initCommands() {
-	rootCmd.AddCommand(BackupCommand(), VersionCommand(), RestoreCommand())
+	rootCmd.AddCommand(BackupCommand(), VersionCommand(), RestoreCommand(), ScheduleCommand(), UnscheduleCmd(), ListScheduleCommand())
 }

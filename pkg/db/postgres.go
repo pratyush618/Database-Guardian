@@ -15,7 +15,7 @@ var (
 	customLog = logger.NewLogger()
 )
 
-func ConnectToPostgres(db_name, db_password, db_user, db_host string, db_port int) (*sql.DB, error) {
+func ConnectToPostgres(db_name, db_password, db_user, db_host, db_port string) (*sql.DB, error) {
 	dbURL, err := utils.GenerateConnectionString(db_name, db_password, db_user, db_host, db_port)
 	if err != nil {
 		log.Fatal(err)
