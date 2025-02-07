@@ -8,7 +8,7 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 
 ### Database Connectivity
 
-- **Supported DBMS**: MySQL, PostgreSQL, MongoDB, SQLite
+- **Supported DBMS**: PostgreSQL
 - **Connection Parameters**: Specify host, port, username, password, and database name.
 - **Connection Testing**: Validate database credentials before performing backup operations.
 
@@ -16,8 +16,8 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 
 - **Backup Types**:
   - Full Backup
-  - Incremental Backup
-  - Differential Backup
+  - Incremental Backup (Upcoming)
+  - Differential Backup (Upcoming)
 - **Compression**: Compress backup files to save storage space.
 
 ### Storage Options
@@ -25,18 +25,18 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 - **Local Storage**: Save backup files locally on your system.
 - **Cloud Storage**:
   - AWS S3
-  - Google Cloud Storage
-  - Azure Blob Storage
+  - Google Cloud Storage (upcoming)
+  - Azure Blob Storage (coming)
 
 ### Logging and Notifications
 
 - **Logging**: Track all backup activities, including start time, end time, status, and errors.
-- **Notifications**: Send Slack notifications upon backup completion.
+- **Notifications** (upcoming): Send Slack notifications upon backup completion.
 
 ### Restore Operations
 
 - Restore databases from backup files.
-- Selectively restore specific tables or collections (if supported by the DBMS).
+- Selectively restore specific tables or collections (upcoming).
 
 ### Automatic Scheduling
 
@@ -69,73 +69,92 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
    go build .
    ```
 
-## Usage
+## **Run Database Guardian Using Docker**
 
-## About guard
+Run the **Database Guardia CLI** tool using Docker without needing to install Go or any dependencies locally.
 
-```bash
-./guard
-```
+### **Prerequisites**
 
-### Backup Command
+- Docker installed on your machine. [Install Docker](https://docs.docker.com/get-docker/).
 
-```bash
-./guard backup --dbms mysql --host localhost --port 3306 --username root --password secret --dbname mydb
-```
+---
 
-#### Options
+### **Run Database Guardian CLI**
 
-- `--dbms` : Type of the database (`mysql`, `postgres`, `mongodb`, `sqlite`).
-- `--host` : Database host.
-- `--port` : Database port.
-- `--username` : Username for database access.
-- `--password` : Password for database access.
-- `--dbname` : Name of the database to back up.
-- `--output(optional)` : Directory to save the backup file.
+1. Pull the Docker image from Docker Hub:
 
-### Restore Command
+   ```bash
+   docker pull annany/guard:1.0
+   ```
 
-```bash
-./guard restore --dbms mysql --dbname mysql --host localhost --password secret --port 5432 --username root --file path/to/file
-```
+2. Run the container interactively:
 
-#### Options
+   ```bash
+   docker run -it annany/guard:1.0
+   ```
 
-- `--dbms` : Type of the database (`mysql`, `postgres`, `mongodb`, `sqlite`).
-- `--host` : Database host.
-- `--port` : Database port.
-- `--username` : Username for database access.
-- `--password` : Password for database access.
-- `--dbname` : Name of the database to back up.
-- `--file` : Path from where database will be restored
+   This will start a shell inside the container where you can run `guard` commands.
 
-### Scheduling Backups
+3. Run a specific `guard` command directly:
 
-Use the `schedule` subcommand to automate backups:
+   ```bash
+   docker run annany/guard:1.0 <command>
+   ```
 
-```bash
-./guard schedule --interval "0 2 * * *" --command "./guard backup ..."
-```
+   Example:
 
-### Unschedule command
+   ```bash
+   docker run annany/guard:1.0 --help
+   ```
 
-Use the `unschedule` subcommand to unschedule the back with it's own id:
+4. (Optional) Mount a local directory to work with files:
+   ```bash
+   docker run -it -v $(pwd):/workspace annanyv/guard-cli:latest
+   ```
+   This mounts the current directory to `/workspace` inside the container.
 
-```bash
-./guard unschedule --j
-```
+---
 
-#### Options
+### **Example Commands**
 
-- `j` : Job id
+- Show help:
 
-### List all Scheduled backups command
+  ```bash
+  docker run annany/guard:1.0 --help
+  ```
 
-Use the `list` subcommand to view all the scheduled backups with their job id:
+- Run a specific subcommand:
+  ```bash
+  docker run annany/guard:1.0 <subcommand> <flags>
+  ```
+  Available commands can be viewed in **Commands.md**
 
-```bash
-./guard list
-```
+---
+
+### **Build the Docker Image Locally**
+
+If you want to build the Docker image yourself:
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/Annany2002/Database-Guardian.git
+   cd Database Guardian
+   ```
+2. Build the image:
+   ```bash
+   docker build -t annany/guard:1.0 .
+   ```
+3. Run the container:
+   ```bash
+   docker run -it annany/guard:1.0
+   ```
+
+---
+
+### **Docker Hub**
+
+The pre-built image is available on Docker Hub:  
+[**annany/database-guardian**](https://hub.docker.com/r/annany/database-guardian)
 
 ### Slack Notifications(Upcoming)
 
@@ -145,7 +164,7 @@ To enable Slack notifications, set your Slack webhook URL in the environment var
 export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 ```
 
-## Configuration
+## Configuration(Upcoming)
 
 You can configure default settings in `config/config.yaml`:
 

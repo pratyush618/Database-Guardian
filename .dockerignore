@@ -1,0 +1,56 @@
+# Exclude files and directories that are not needed in the image
+
+# Go-specific
+.git
+.idea
+*.go_test
+_test
+testdata
+vendor  # Often included, but can be large; better to manage with go mod vendor
+go.sum # Often included, but can be large; better to manage with go mod vendor
+
+# Build artifacts
+bin/
+build/
+*.exe
+*.o
+
+# Configuration files (if they are environment-specific and shouldn't be in the image)
+config.yaml  # Or any other config files
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Editor and IDE files
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Other files
+.gitignore
+Dockerfile
+.dockerignore
+
+# Example of excluding specific directories
+some_directory/
+docs/
+
+# Exclude all markdown files
+*.md
+
+# Exclude backup files
+*~
+# or
+.#*
+
+# Exclude compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Exclude node modules if you have a frontend part
+node_modules/
