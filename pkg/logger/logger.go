@@ -30,7 +30,7 @@ func NewLogger() *Logger {
 	})
 
 	// Set the output file
-	logFilePath := filepath.Join("logs", "data-guard.log")
+	logFilePath := filepath.Join("logs", "guard.log")
 	if err := os.MkdirAll(filepath.Dir(logFilePath), os.ModePerm); err != nil {
 		logrus.Fatalf("Failed to create log directory: %v", err)
 	}

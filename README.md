@@ -127,7 +127,7 @@ Run the **Database Guardia CLI** tool using Docker without needing to install Go
   ```bash
   docker run annany/guard:1.0 <subcommand> <flags>
   ```
-  Available commands can be viewed in **[Commands.md](https://github.com/Annany2002/Database-Guardian/blob/main/Commands.md)**
+  Available commands can be viewed in **[COMMANDS.md](https://github.com/Annany2002/Database-Guardian/blob/main/COMMANDS.md)**
 
 ---
 
@@ -187,7 +187,7 @@ aws:
 
 ## Logging
 
-Logs are stored in `logs/data-guard.log` by default. You can change the log path in the configuration file.
+Logs are stored in `logs/guard.log` by default. You can change the log path in the configuration file.
 
 ## Testing
 
