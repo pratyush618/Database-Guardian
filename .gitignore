@@ -38,3 +38,7 @@ Godeps/
 
 # Environement Variables
 .env
+
+# Backup files
+backup/
+*.bak
