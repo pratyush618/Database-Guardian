@@ -181,7 +181,7 @@ If you want to build the Docker image yourself:
 ### **Docker Hub**
 
 The pre-built image is available on Docker Hub:  
-[**annany/database-guardian**](https://hub.docker.com/r/annany/database-guardian)
+[**annany/guard**](https://hub.docker.com/r/annany/guard)
 
 ### Slack Notifications(Upcoming)
 
