@@ -13,19 +13,22 @@ RUN go mod download
 COPY . .
 
 # Build the CLI tool
-RUN go build -o guard
+RUN CGO_ENABLED=0 go build -o guard
 
 # Stage 2: Create the final image
 FROM alpine:latest
 
-# Install bash for interactive use
+# Install bash (optional)
 RUN apk add --no-cache bash
 
-# Copy the guard binary from the builder stage
+# Copy the guard binary
 COPY --from=builder /app/guard /usr/local/bin/guard
+
+# Ensure guard is executable
+RUN chmod +x /usr/local/bin/guard
 
 # Set the working directory
 WORKDIR /
 
-# Set the entrypoint to bash for interactive use
-ENTRYPOINT ["/bin/bash"]
+# Run guard as the main process
+CMD ["/usr/local/bin/guard"]

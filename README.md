@@ -87,47 +87,72 @@ Run the **Database Guardia CLI** tool using Docker without needing to install Go
    docker pull annany/guard:1.0
    ```
 
-2. Run the container interactively:
+2. Run the image interactively:
 
    ```bash
-   docker run -it annany/guard:1.0
+   docker run --rm -it annany/guard:1.0 /bin/bash
    ```
 
-   This will start a shell inside the container where you can run `guard` commands.
-
-3. Run a specific `guard` command directly:
+   - This will start a shell inside the container where you can run `guard` commands. Note that when you'll exit the container, it will be deleted.
+   - If you want your container to **persist** even after you exit the interactive Bash session, you should run it in **detached mode** (-d) without the --rm flag.
 
    ```bash
-   docker run annany/guard:1.0 <command>
+       docker run -dit --name guard-container annany/guard:1.0 /bin/bash
    ```
 
-   Example:
+3. Reattach to the container:
 
-   ```bash
-   docker run annany/guard:1.0 --help
-   ```
+You can reattach to the running/stopped container using:
 
-4. (Optional) Mount a local directory to work with files:
-   ```bash
-   docker run -it -v $(pwd):/workspace annanyv/guard-cli:latest
-   ```
-   This mounts the current directory to `/workspace` inside the container.
+```bash
+docker start -ai guard-container  # Start and attach
+```
 
----
+**or**
 
-### **Example Commands**
+```bash
+docker exec -it guard-container /bin/bash  # Open a new Bash session inside
+```
 
-- Show help:
+4. Persist Logs:
+
+By default, Docker saves container logs, and you can view them with:
+
+    ```bash
+    docker logs -f guard-container  # Follow logs in real-time
+    ```
+
+If you want to persist logs to a file on your host machine, mount a volume:
+
+    ```bash
+    docker run -dit --name guard-container -v $(pwd)/logs:/var/log annany/guard:1.0 /bin/bash
+    ```
+
+- This saves logs inside logs/ on your machine.
+
+5. Persist Data Using Volumes
+
+- If guard generates files, save them outside the container using a named volume:
+
+      ```bash
+      docker run -dit --name guard-container -v guard-data:/app/data annany/guard:1.0 /bin/bash
+      ```
+
+  The guard-data volume persists even if the container is removed.
+
+- Later, you can find the data using:
 
   ```bash
-  docker run annany/guard:1.0 --help
+  docker volume inspect guard-data
   ```
 
-- Run a specific subcommand:
-  ```bash
-  docker run annany/guard:1.0 <subcommand> <flags>
-  ```
-  Available commands can be viewed in **[COMMANDS.md](https://github.com/Annany2002/Database-Guardian/blob/main/COMMANDS.md)**
+- If you want to store data in a specific host folder:
+
+      ```bash
+      docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1.0 /bin/bash
+      ```
+
+  This ensures data is accessible at ./data on your host machine.
 
 ---
 
@@ -146,7 +171,7 @@ If you want to build the Docker image yourself:
    ```
 3. Run the container:
    ```bash
-   docker run -it annany/guard:1.0
+   docker run --rm annany/guard:1.0
    ```
 
 ---
