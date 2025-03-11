@@ -154,6 +154,8 @@ If you want to persist logs to a file on your host machine, mount a volume:
 
   This ensures data is accessible at ./data on your host machine.
 
+![image](https://github.com/user-attachments/assets/b97f9e05-53de-4001-ad22-41fe22ba895f)
+
 ---
 
 ### **Build the Docker Image Locally**
