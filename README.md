@@ -42,6 +42,10 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 
 - Schedule backups using cron jobs.
 
+## View Docs
+
+The documentation for Database Guardian is available at [Guard Docs](https://database-guardian-spectrum0109s-projects.vercel.app/)
+
 ## Installation
 
 ### Prerequisites
@@ -53,18 +57,25 @@ The **Database Guardian** is a command-line interface (CLI) utility built in Go 
 ### Steps
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/Annany2002/Data-Guardian.git
    ```
+
 2. Navigate to the project directory:
+
    ```bash
    cd data_guardian
    ```
+
 3. Install dependencies:
+
    ```bash
    go mod tidy
    ```
+
 4. Build the CLI:
+
    ```bash
    go build .
    ```
