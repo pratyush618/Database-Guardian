@@ -140,9 +140,9 @@ The guard-data volume persists even if the container is removed.
 
 - Later, you can find the data using:
 
-```bash
-docker volume inspect guard-data
-```
+  ```bash
+  docker volume inspect guard-data
+  ```
 
 - If you want to store data in a specific host folder:
 
