@@ -80,28 +80,31 @@ The documentation for Database Guardian is available at [Guard Docs](https://dat
    go build .
    ```
 
-## via Docker
+### via Docker
 
-To install the image and run commands through docker, visit the **Docker-Commands.md** file.
+To install the image and run commands through docker, visit the **[Docker-Commands.md](https://github.com/Annany2002/Database-Guardian/blob/main/Commands.md)** file.
 
-## Guard commands
+## Supported Commands
 
-To view all the commands supported bu guard, visit the **Commands.md** file.
+To view all the commands supported bu guard, visit the **[Commands.md](https://github.com/Annany2002/Database-Guardian/blob/main/Docker-Commands.md)** file.
 
 ### **Build the Docker Image Locally**
 
 If you want to build the Docker image yourself:
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/Annany2002/Database-Guardian.git
    cd Database Guardian
    ```
-2. Build the image:
+3. Build the image:
+
    ```bash
    docker build -t annany/guard:1.0 .
    ```
-3. Run the container:
+5. Run the container:
+
    ```bash
    docker run --rm annany/guard:1.0
    ```
