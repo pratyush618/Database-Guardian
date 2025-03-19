@@ -1,15 +1,8 @@
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Database, Shield, Book, Github } from "lucide-react";
+import { Book, Github } from "lucide-react";
 import Layout from "@/components/Layout";
 
 const DocsPage = () => {
