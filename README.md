@@ -86,7 +86,7 @@ To install the image and run commands through docker, visit the **[Docker-Instal
 
 ## Supported Commands
 
-To view all the commands supported bu guard, visit the **[Commands.md](https://github.com/Annany2002/Database-Guardian/blob/main/Commands.md)** file.
+To view all the commands supported by guard, visit the **[Commands.md](https://github.com/Annany2002/Database-Guardian/blob/main/Commands.md)** file.
 
 ### **Build the Docker Image Locally**
 
