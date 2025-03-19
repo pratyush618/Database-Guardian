@@ -11,12 +11,13 @@ import {
 import Link from "next/link";
 import FeatureCard from "@/components/FeatureCard";
 import Layout from "@/components/Layout";
-import InstallationAndUsage from "@/components/Installation-and-Usage";
+import InstallationAndCommands from "@/components/Installation-and-Usage";
 
 const HomePage = () => {
   return (
     <Layout>
       <main className="container mx-auto px-4 py-8 max-w-6xl">
+       
         {/* Hero Section */}
         <section className="py-12 text-center">
           <div className="flex justify-center mb-4">
@@ -82,8 +83,8 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* Installation & Usage Section */}
-        <InstallationAndUsage />
+        {/* Installation & Commands Section */}
+        <InstallationAndCommands />
 
         {/* CTA Section */}
         <section className="py-12">

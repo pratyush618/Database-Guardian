@@ -24,7 +24,7 @@ const CodeBlock: React.FC<{
         </div>
       )}
 
-      <pre className="pl-4 py-2">
+      <pre className="pl-4 py-2 whitespace-pre-wrap">
         <code lang={language}>{code}</code>
       </pre>
 

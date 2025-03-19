@@ -11,17 +11,17 @@ import {
   CardFooter,
 } from "./ui/card";
 
-export default function InstallationAndUsage() {
+export default function InstallationAndCommands() {
   return (
     <section className="py-12">
       <h2 className="text-3xl font-bold mb-8 text-center">
-        Installation & Usage
+        Installation & Commands
       </h2>
 
       <Tabs defaultValue="installation">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="installation">Installation</TabsTrigger>
-          <TabsTrigger value="docker">Docker Usage</TabsTrigger>
+          <TabsTrigger value="docker">via Docker</TabsTrigger>
           <TabsTrigger value="commands">Commands</TabsTrigger>
         </TabsList>
 
@@ -56,10 +56,6 @@ export default function InstallationAndUsage() {
 
               <CodeBlock title="Build the CLI" code="go build ." />
             </CardContent>
-            {/* <CardFooter className="flex justify-between">
-              <Button variant="outline">View Requirements</Button>
-              <Button>Next: Docker Usage</Button>
-            </CardFooter> */}
           </Card>
         </TabsContent>
 
@@ -83,17 +79,17 @@ export default function InstallationAndUsage() {
 
               <CodeBlock
                 title="Pull the Docker image"
-                code="docker pull annany/guard:1.0"
+                code="docker pull annany/guard:latest"
               />
 
               <CodeBlock
                 title="Run the image interactively"
-                code="docker run --rm -it annany/guard:1.0 /bin/bash"
+                code="docker run --rm -it annany/guard:latest /bin/bash"
               />
 
               <CodeBlock
                 title="Run in detached mode (to persist)"
-                code="docker run -dit --name guard-container annany/guard:1.0 /bin/bash"
+                code="docker run -dit --name guard-container annany/guard:latest /bin/bash"
               />
 
               <h3 className="text-lg font-semibold mb-4 mt-6">
@@ -102,12 +98,12 @@ export default function InstallationAndUsage() {
 
               <CodeBlock
                 title="Using a named volume"
-                code="docker run -dit --name guard-container -v guard-data:/app/data annany/guard:1.0 /bin/bash"
+                code="docker run -dit --name guard-container -v guard-data:/app/data annany/guard:latest /bin/bash"
               />
 
               <CodeBlock
                 title="Using a host directory"
-                code="docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1.0 /bin/bash"
+                code="docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:latest /bin/bash"
               />
             </CardContent>
             <CardFooter className="flex justify-between">

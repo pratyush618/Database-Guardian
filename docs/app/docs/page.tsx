@@ -16,9 +16,9 @@ const DocsPage = () => {
   return (
     <Layout>
       <div className="px-12 py-8">
-        <div className="flex gap-16 justify-center w-full">
+        <div className="flex gap-16 justify-center">
           {/* Sidebar navigation */}
-          <aside className="hidden border-r-2  p-2 max-w-[20rem] lg:block">
+          <aside className="hidden border-r-2 p-2 max-w-[22rem] lg:block">
             <div className="sticky top-24 overflow-hidden">
               <ScrollArea className="h-[calc(100vh-120px)] pr-6">
                 <nav className="space-y-6">
@@ -129,7 +129,7 @@ const DocsPage = () => {
           </aside>
 
           {/* Main content */}
-          <div className="max-w-6xl">
+          <div className="px-2">
             <section id="overview" className="mb-16">
               <h1 className="text-4xl font-bold mb-6">Database Guardian</h1>
               <p className="text-lg text-muted-foreground mb-8">
@@ -137,11 +137,11 @@ const DocsPage = () => {
                 multiple database types.
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-3xl">
                 <Card>
                   <CardHeader className="flex flex-row items-center space-x-2">
                     <Database className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-lg">
+                    <CardTitle className="text-xl">
                       Multiple Database Support
                     </CardTitle>
                   </CardHeader>
@@ -165,9 +165,9 @@ const DocsPage = () => {
                     </CardDescription>
                   </CardContent>
                 </Card>
-              </div>
+              </div> */}
 
-              <div className="prose dark:prose-invert  max-w-md">
+              <div className="prose dark:prose-invert max-w-md">
                 <h2
                   id="features"
                   className="text-xl mb-2 text-gray-900 underline underline-offset-2 font-bold scroll-mt-24"
@@ -216,7 +216,7 @@ const DocsPage = () => {
                 </ul>
                 <h3 className="font-semibold">Steps</h3>
                 <pre>
-                  <code className="language-bash">
+                  <code className="language-bash whitespace-pre-wrap">
                     {`$ git clone https://github.com/Annany2002/Database-Guardian.git
 $ cd data_guardian
 $ go mod tidy
@@ -245,10 +245,10 @@ $ go build .`}
                   Run Database Guardian CLI
                 </h3>
                 <pre>
-                  <code className="language-bash">
-                    {`$ docker pull annany/guard:1.0
-$ docker run --rm -it annany/guard:1.0 /bin/bash
-$ docker run -dit --name guard-container annany/guard:1.0 /bin/bash`}
+                  <code className="language-bash whitespace-pre-wrap">
+                    {`$ docker pull annany/guard:latest
+$ docker run --rm -it annany/guard:latest /bin/bash
+$ docker run -dit --name guard-container annany/guard:latest /bin/bash`}
                   </code>
                 </pre>
 
@@ -256,9 +256,9 @@ $ docker run -dit --name guard-container annany/guard:1.0 /bin/bash`}
                   Persist Data Using Volumes
                 </h3>
                 <pre>
-                  <code className="language-bash">
-                    {`$ docker run -dit --name guard-container -v guard-data:/app/data annany/guard:1.0 /bin/bash
-$ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1.0 /bin/bash`}
+                  <code className="language-bash whitespace-pre-wrap">
+                    {`$ docker run -dit --name guard-container -v guard-data:/app/data annany/guard:latest /bin/bash
+$ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:latest /bin/bash`}
                   </code>
                 </pre>
               </div>
@@ -283,7 +283,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                       Backup Command
                     </h3>
                     <pre>
-                      <code className="language-bash">
+                      <code className="language-bash whitespace-pre-wrap">
                         $ guard backup --dbms mysql --host localhost --port 3306
                         --username root --password secret --dbname mydb
                       </code>
@@ -322,7 +322,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                       Restore Command
                     </h3>
                     <pre>
-                      <code className="language-bash">
+                      <code className="language-bash whitespace-pre-wrap">
                         $ guard restore --dbms mysql --dbname mysql --host
                         localhost --password secret --port 5432 --username root
                         --file path/to/file
@@ -363,7 +363,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                       Schedule Command
                     </h3>
                     <pre>
-                      <code className="language-bash">
+                      <code className="language-bash whitespace-pre-wrap">
                         $ guard schedule --cron &quot;0 2 * * *&quot; --dbname
                         db_name --username your_name --password my_password
                       </code>
@@ -403,7 +403,9 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                       scheduled backups with their job id:
                     </p>
                     <pre>
-                      <code className="language-bash">$ guard list</code>
+                      <code className="language-bash whitespace-pre-wrap">
+                        $ guard list
+                      </code>
                     </pre>
 
                     <h3 className="font-semibold text-lg mt-2">
@@ -414,7 +416,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                       the back with it&apos;s own id:
                     </p>
                     <pre>
-                      <code className="language-bash">
+                      <code className="language-bash whitespace-pre-wrap">
                         $ guard unschedule --j job_id
                       </code>
                     </pre>
@@ -429,7 +431,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                     <h3 className="font-semibold text-lg mt-2">Help Command</h3>
                     <p>To know more about specific command:</p>
                     <pre>
-                      <code className="language-bash">
+                      <code className="language-bash whitespace-pre-wrap">
                         $ guard command_name -h
                       </code>
                     </pre>
@@ -478,7 +480,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                   Example Backup Command
                 </h3>
                 <pre className="whitespace-pre-line">
-                  <code className="language-bash">
+                  <code className="language-bash whitespace-pre-wrap">
                     $ guard backup --dbms postgres --host localhost --port 5432
                     --username postgres --password securepass --dbname
                     my_database --output /path/to/backups
@@ -505,7 +507,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                   file:
                 </p>
                 <pre className="whitespace-pre-line">
-                  <code className="language-bash">
+                  <code className="language-bash whitespace-pre-wrap">
                     $ guard restore --dbms postgres --host localhost --port 5432
                     --username postgres --password securepass --dbname
                     my_database --file /path/to/backup_file.sql
@@ -543,7 +545,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                   with a cron expression:
                 </p>
                 <pre className="whitespace-pre-line mb-2">
-                  <code className="language-bash">
+                  <code className="language-bash whitespace-pre-wrap">
                     $ guard schedule --cron &quot;0 2 * * *&quot; --dbms
                     postgres --host localhost --port 5432 --username postgres
                     --password securepass --dbname my_database
@@ -575,12 +577,14 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                 </h3>
                 <p>To view all scheduled backups:</p>
                 <pre>
-                  <code className="language-bash">$ guard list</code>
+                  <code className="language-bash whitespace-pre-wrap">
+                    $ guard list
+                  </code>
                 </pre>
 
                 <p className="mt-2">To remove a scheduled backup:</p>
                 <pre>
-                  <code className="language-bash">
+                  <code className="language-bash whitespace-pre-wrap">
                     $ guard unschedule --j job_id
                   </code>
                 </pre>
@@ -605,7 +609,7 @@ $ docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1
                   flag:
                 </p>
                 <pre className="whitespace-pre-line">
-                  <code className="language-bash">
+                  <code className="language-bash whitespace-pre-wrap">
                     $ guard backup --dbms postgres --host localhost --port 5432
                     --username postgres --password securepass --dbname
                     my_database --output /path/to/backups

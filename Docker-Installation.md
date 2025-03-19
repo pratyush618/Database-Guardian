@@ -11,20 +11,20 @@ Run the **Database Guardia CLI** tool using Docker without needing to install Go
 1.  Pull the Docker image from Docker Hub:
 
     ```bash
-    docker pull annany/guard:1.0
+    docker pull annany/guard:latest
     ```
 
 2.  Run the image interactively:
 
     ```bash
-    docker run --rm -it annany/guard:1.0 /bin/bash
+    docker run --rm -it annany/guard:latest /bin/bash
     ```
 
     - This will start a shell inside the container where you can run `guard` commands. Note that when you'll exit the container, it will be deleted.
     - If you want your container to **persist** even after you exit the interactive Bash session, you should run it in **detached mode** (-d) without the --rm flag.
 
     ```bash
-    docker run -dit --name guard-container annany/guard:1.0 /bin/bash
+    docker run -dit --name guard-container annany/guard:latest /bin/bash
     ```
 
 3.  Reattach to the container:
@@ -52,7 +52,7 @@ Run the **Database Guardia CLI** tool using Docker without needing to install Go
     If you want to persist logs to a file on your host machine, mount a volume:
 
     ```bash
-    docker run -dit --name guard-container -v $(pwd)/logs:/var/log annany/guard:1.0 /bin/bash
+    docker run -dit --name guard-container -v $(pwd)/logs:/var/log annany/guard:latest /bin/bash
     ```
 
     - This saves logs inside logs/ on your machine.
@@ -62,7 +62,7 @@ Run the **Database Guardia CLI** tool using Docker without needing to install Go
     - If guard generates files, save them outside the container using a named volume:
 
       ```bash
-      docker run -dit --name guard-container -v guard-data:/app/data annany/guard:1.0 /bin/bash
+      docker run -dit --name guard-container -v guard-data:/app/data annany/guard:latest /bin/bash
       ```
 
 The guard-data volume persists even if the container is removed.
@@ -76,22 +76,22 @@ The guard-data volume persists even if the container is removed.
 - If you want to store data in a specific host folder:
 
   ```bash
-  docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:1.0 /bin/bash
+  docker run -dit --name guard-container -v $(pwd)/data:/app/data annany/guard:latest /bin/bash
   ```
 
 - This ensures data is accessible at ./data on your host machine.
 
 ## Summary
 
-| Goal                           | Command                                                             | Description                    |
-| ------------------------------ | ------------------------------------------------------------------- | ------------------------------ |
-| Run container persistently     | `docker run -dit --name guard-container annany/guard:1.0 /bin/bash` | Run container persistently     |
-| Reattach to container          | `docker exec -it guard-container /bin/bash`                         | Reattach to container          |
-| Persist logs                   | `docker logs -f guard-container`                                    | Persist logs                   |
-| Save logs to file              | `docker run -dit -v $(pwd)/logs:/var/log ...`                       | Save logs to file              |
-| Persist data                   | `docker run -dit -v guard-data:/app/data ...`                       | Persist data                   |
-| Restart container              | `docker start guard-container`                                      | Restart container              |
-| Remove container but keep data | `docker rm -f guard-container`                                      | Remove container but keep data |
+| Goal                           | Command                                                                | Description                    |
+| ------------------------------ | ---------------------------------------------------------------------- | ------------------------------ |
+| Run container persistently     | `docker run -dit --name guard-container annany/guard:latest /bin/bash` | Run container persistently     |
+| Reattach to container          | `docker exec -it guard-container /bin/bash`                            | Reattach to container          |
+| Persist logs                   | `docker logs -f guard-container`                                       | Persist logs                   |
+| Save logs to file              | `docker run -dit -v $(pwd)/logs:/var/log ...`                          | Save logs to file              |
+| Persist data                   | `docker run -dit -v guard-data:/app/data ...`                          | Persist data                   |
+| Restart container              | `docker start guard-container`                                         | Restart container              |
+| Remove container but keep data | `docker rm -f guard-container`                                         | Remove container but keep data |
 
 ## Attaching an image for reference
 

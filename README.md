@@ -82,7 +82,7 @@ The documentation for Database Guardian is available at [Guard Docs](https://dat
 
 ### via Docker
 
-To install the image and run commands through docker, visit the **[Docker-Commands.md](https://github.com/Annany2002/Database-Guardian/blob/main/Docker-Installation.md)** file.
+To install the image and run commands through docker, visit the **[Docker-Installation.md](https://github.com/Annany2002/Database-Guardian/blob/main/Docker-Installation.md)** file.
 
 ## Supported Commands
 

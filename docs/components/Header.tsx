@@ -15,7 +15,7 @@ import { SheetTrigger, SheetContent, SheetTitle } from "./ui/sheet";
 export default function Header() {
   return (
     <header className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur">
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
