@@ -1,0 +1,55 @@
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+:root {
+  --primary-rgb: 124, 58, 237; /* Purple color */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --primary-rgb: 139, 92, 246; /* Lighter purple for dark mode */
+}
+
+body, html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode-transition,
+.dark .dark-mode-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Scrollbar styling */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted));
+  border-radius: 6px;
+  border: 3px solid hsl(var(--background));
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground));
+}
